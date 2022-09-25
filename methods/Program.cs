@@ -35,7 +35,7 @@ int year = Method3();
 
 
 //4
-string Method4 (int count, string text)
+string Method4 (int count, string text)  // с помощью цикла while
 {
     int i = 0;
     string result = "";   // or string result = String.Empty;
@@ -46,6 +46,28 @@ string Method4 (int count, string text)
     }
     return result;
 }
+
+string Method4 (int count, string text)  // с помощью цикла for 
+{
+    string result = "";   // or string result = String.Empty;
+    for (int i = 0; i < count; i++)
+    {
+      result = result + text;
+    }
+    return result;
+}
 string res = Method4 (10, "z");
-Console.WriteLine(res);
+//Console.WriteLine(res);
+
+
+// таблица умножения 
+for (int i = 2; i <= 10; i++)
+{
+    for (int j = 2; j <= 10; j++)
+    {
+      Console.WriteLine($"{i} * {j} = {i*j}");
+    }
+    Console.WriteLine();
+}
+
 
