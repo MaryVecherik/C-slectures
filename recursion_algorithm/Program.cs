@@ -197,10 +197,18 @@ void DirectoryInfoRec() // посмотреть содержимое папки 
             Console.WriteLine($"{indent}{item.Name}");
         }
     }
-    string path = "C:/Users/Мария/Desktop/Учеба/1 четверть/4. Знакомство с C#/Лекции/Examples/magic";
+    string path = @"/Users/Мария/Desktop/Учеба/1 четверть/4. Знакомство с C#/Лекции/Examples";
     CatalogInfo(path);
 }
 
+//Игра в пирамидки
+void Towers(string with = "1", string on = "3", string some = "2", int count = 5)
+{
+ if (count > 1) Towers(with, some, on, count - 1);
+ Console.WriteLine($"{with} >> {on}");
+ if (count > 1) Towers(some, on, with, count - 1);
+}
 
-DirectoryInfoRec();
+Console.WriteLine();
+Towers();
 
