@@ -43,7 +43,7 @@ FillArray(matrix);
 PrintArray(matrix); 
 */
 
-void Pic() // Закрасить картинку 
+void FillPic() // Закрасить картинку 
 {
     int[,] pic = new int[,]
 {
@@ -72,41 +72,41 @@ void Pic() // Закрасить картинку
  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 };
 
-void PrintImage (int[,] image) //печать
-{
-    for (int i = 0; i < image.GetLength(0); i++)
+    void PrintImage(int[,] image) //печать
     {
-        for (int j = 0; j < image.GetLength(1); j++)
+        for (int i = 0; i < image.GetLength(0); i++)
         {
-            if (image[i, j] == 0) Console.Write($" ");
-            else Console.Write($"+");
+            for (int j = 0; j < image.GetLength(1); j++)
+            {
+                if (image[i, j] == 0) Console.Write($" ");
+                else Console.Write($"+");
+            }
+            Console.WriteLine();
         }
-        Console.WriteLine();
     }
-}
-void FillImage (int row, int col) //закрашивает
-{
-    if (pic[row, col] == 0)
+    void FillImage(int row, int col) //закрашивает
     {
-        pic[row, col] = 1;
-        FillImage(row-1, col);
-        FillImage(row, col-1);
-        FillImage(row+1, col);
-        FillImage(row, col+1);
+        if (pic[row, col] == 0)
+        {
+            pic[row, col] = 1;
+            FillImage(row - 1, col);
+            FillImage(row, col - 1);
+            FillImage(row + 1, col);
+            FillImage(row, col + 1);
+        }
     }
-}
 
-Console.Clear();
-PrintImage(pic);
-FillImage(10, 13);
-PrintImage(pic);
+    Console.Clear();
+    PrintImage(pic);
+    FillImage(10, 13);
+    PrintImage(pic);
 
 }
 
 //Примеры использования Рекурсии
 Console.Clear();
 
-void Rec() //Факториал и Фибоначи
+void UseRec() //Факториал и Фибоначи
 {
     Console.WriteLine("Введите число");
     int num = Convert.ToInt32(Console.ReadLine());
@@ -121,7 +121,7 @@ void Rec() //Факториал и Фибоначи
     }
     Console.WriteLine($"{num}! = {Factorial(num)}");
 
-    /*
+    /* use цикл
     for (int i = 1; i <= num; i++)
     {
       Console.WriteLine($"{i}! = {Factorial(i)}");
@@ -140,7 +140,7 @@ void Rec() //Факториал и Фибоначи
 
     Console.WriteLine($"f({num}) = {Fibonacci(num)}");
 
-    /*
+    /* use цикл
     for (int i = 1; i <= num; i++)
     {
        Console.WriteLine($"f({i}) = {Fibonacci(i)}");
@@ -148,7 +148,7 @@ void Rec() //Факториал и Фибоначи
     */
 }
 
-void Rec2() //Перебор слов
+void Perebor() //Перебор слов
 {
     /*В некотором машинном алфавите имеются четыре
     буквы «а», «и», «с» и «в». Покажите все слова,
@@ -170,5 +170,37 @@ void Rec2() //Перебор слов
     FindWords("аисв", new char[2]);
 }
 
-Rec();
+void DirectoryInfo() //Как посмотреть содержимое папки?
+{
+    string path = "C:/Users/Мария/Desktop/Учеба/1 четверть/4. Знакомство с C#/Лекции/Examples/recursion_algorithm";
+    DirectoryInfo di = new DirectoryInfo(path);
+    Console.WriteLine(di.CreationTime); //дата создания папки
+    FileInfo[] fi = di.GetFiles(); // какие файлы содержит папка
+    for (int i = 0; i < fi.Length; i++)
+    {
+        Console.WriteLine(fi[i].Name);
+    }
+}
+
+void DirectoryInfoRec() // посмотреть содержимое папки use рекурсию
+{
+    void CatalogInfo(string path, string indent = "")
+    {
+        DirectoryInfo catalogs = new DirectoryInfo(path);
+        foreach (var currentCatalog in catalogs.GetDirectories())
+        {
+            Console.WriteLine($"{indent}{currentCatalog.Name}");
+            CatalogInfo(currentCatalog.FullName, indent + " ");
+        }
+        foreach (var item in catalogs.GetFiles())
+        {
+            Console.WriteLine($"{indent}{item.Name}");
+        }
+    }
+    string path = "C:/Users/Мария/Desktop/Учеба/1 четверть/4. Знакомство с C#/Лекции/Examples/magic";
+    CatalogInfo(path);
+}
+
+
+DirectoryInfoRec();
 
